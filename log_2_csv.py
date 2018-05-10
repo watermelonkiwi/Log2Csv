@@ -15,34 +15,21 @@ import re
 def parse_teamname(rcg_path="./20180311233034-Alice_0-vs-HfutEngine2017_1.rcg"):
     t_name_exp='-(.*?)_'
     t_name=re.findall(t_name_exp,rcg_path)
-    l_name=t_name[0]
+    l_name=t_name[0]	
     r_name=t_name[1][3:]
     log_name_exp='(\d+-.*?).rcg'
     log_name=re.findall(log_name_exp,rcg_path)[0]+".csv"
     print(l_name,r_name,log_name)
-    return l_name,r_name,log_name
+    return l_name,r_name,"./csv/"+log_name
 
 
 
 class Log2Csv:
-	'''
-	parse log  2 csv 
-	
-	'''
-	
-
     def __init__(self,rcg_path,rcl_path):
         self.rcg_path=rcg_path
         self.rcl_path=rcl_path
         self.l_name,self.r_name,self.csv_name=parse_teamname(self.rcg_path)
         self.game_id=self.csv_name[:-4]
- 
-                                           
-	'''
-	parse rcg 2 csv
-	'''
-        
- 
     def rcg_2_df(self):
         rcg=open(self.rcg_path,"r")
         player_dict={}
@@ -129,9 +116,6 @@ class Log2Csv:
                 player_dict["player_y"].append(player_info[5])
                 player_dict["player_vx"].append(player_info[6])
                 player_dict["player_vy"].append(player_info[7])
-
-
-
 
 import os
 if __name__=="__main__":
